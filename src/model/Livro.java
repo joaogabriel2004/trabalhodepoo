@@ -1,7 +1,7 @@
 package model;
 
 public class Livro {
-    private static int nextId = 1;
+    private static int proximoId = 1;
 
     private int id;
     private String titulo;
@@ -10,7 +10,7 @@ public class Livro {
     private boolean lido;
 
     public Livro(String titulo) {
-        this.id = nextId++;
+        this.id = proximoId++;
         this.titulo = titulo;
         this.nota = -1;
         this.descricao = "";
@@ -24,16 +24,32 @@ public class Livro {
     }
 
     // Getters
-    public int getId() { return id; }
-    public String getTitulo() { return titulo; }
-    public int getNota() { return nota; }
-    public String getDescricao() { return descricao; }
-    public boolean isLido() { return lido; }
+    public int getId() {
+        return id;
+    }
+    public String getTitulo() {
+        return titulo;
+    }
+    public int getNota() {
+        return nota;
+    }
+    public String getDescricao() {
+        return descricao;
+    }
+    public boolean isLido() {
+        return lido;
+    }
 
     // Setters
-    public void setTitulo(String titulo) { this.titulo = titulo; }
-    public void setNota(int nota) { this.nota = nota; }
-    public void setDescricao(String descricao) { this.descricao = descricao; }
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+    public void setNota(int nota) {
+        this.nota = nota;
+    }
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 
     @Override
     public String toString() {
