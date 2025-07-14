@@ -3,7 +3,7 @@ package model;
 public class Livro {
     private static int proximoId = 1;
 
-    private int id;
+    private final int id;
     private String titulo;
     private int nota;
     private String descricao;

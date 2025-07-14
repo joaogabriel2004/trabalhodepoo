@@ -6,6 +6,7 @@ import model.Livro;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.JOptionPane;
 
 public class BibliotecaGUI extends JFrame {
     private final Biblioteca biblioteca = new Biblioteca();
@@ -63,13 +64,19 @@ public class BibliotecaGUI extends JFrame {
 
         lerBtn.addActionListener(e -> {
             try {
+                int nota;
                 int id = Integer.parseInt(JOptionPane.showInputDialog("ID do livro a marcar como lido:"));
-                int nota = Integer.parseInt(JOptionPane.showInputDialog("Nota (0-5):"));
+                if(biblioteca.encontrarPorId(id)==null){
+                    throw null;
+                }
+                do {
+                     nota = Integer.parseInt(JOptionPane.showInputDialog("Nota (0-5):"));
+                } while (nota<0 || nota>5);
                 String desc = JOptionPane.showInputDialog("Descrição (opcional):");
                 biblioteca.marcarComoLido(id, nota, desc != null ? desc : "");
                 atualizarListas();
             } catch (Exception ex) {
-                outputArea.setText("Erro ao processar entrada.");
+                JOptionPane.showMessageDialog(null, "Ocorreu um erro ao marcar um livro como lido");
             }
         });
 
@@ -90,16 +97,19 @@ public class BibliotecaGUI extends JFrame {
                 int id = Integer.parseInt(JOptionPane.showInputDialog("ID do livro a editar:"));
                 Livro l = biblioteca.encontrarPorId(id);
                 if (l == null) {
-                    outputArea.setText("Livro não encontrado.");
-                    return;
+                    throw null;
                 }
                 String novoTitulo = JOptionPane.showInputDialog("Novo título:", l.getTitulo());
-                int novaNota = l.isLido() ? Integer.parseInt(JOptionPane.showInputDialog("Nova nota:", l.getNota())) : -1;
-                String novaDesc = l.isLido() ? JOptionPane.showInputDialog("Nova descrição:", l.getDescricao()) : "";
-                biblioteca.editarLivro(id, novoTitulo, novaNota, novaDesc);
+                if(l.isLido()){
+                    int novaNota = l.isLido() ? Integer.parseInt(JOptionPane.showInputDialog("Nova nota:", l.getNota())) : -1;
+                    String novaDesc = l.isLido() ? JOptionPane.showInputDialog("Nova descrição:", l.getDescricao()) : "";
+                    biblioteca.editarLivro(id, novoTitulo, novaNota, novaDesc);
+                } else {
+                    biblioteca.editarLivro(id, novoTitulo, -1, "");
+                }
                 atualizarListas();
             } catch (Exception ex) {
-                outputArea.setText("Erro ao editar livro.");
+                outputArea.setText("Ocorreu um erro ao editar livro.");
             }
         });
 
