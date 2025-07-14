@@ -1,6 +1,6 @@
 package model;
 
-public class Livro {
+public class    Livro {
     private static int proximoId = 1;
 
     private final int id;
