@@ -101,7 +101,11 @@ public class BibliotecaGUI extends JFrame {
                 }
                 String novoTitulo = JOptionPane.showInputDialog("Novo título:", l.getTitulo());
                 if(l.isLido()){
-                    int novaNota = l.isLido() ? Integer.parseInt(JOptionPane.showInputDialog("Nova nota:", l.getNota())) : -1;
+                    int novaNota;
+                    do{
+                        novaNota = l.isLido() ? Integer.parseInt(JOptionPane.showInputDialog("Nova nota:", l.getNota())) : -1;
+                    } while (novaNota<0 || novaNota>5);
+
                     String novaDesc = l.isLido() ? JOptionPane.showInputDialog("Nova descrição:", l.getDescricao()) : "";
                     biblioteca.editarLivro(id, novoTitulo, novaNota, novaDesc);
                 } else {
@@ -109,17 +113,20 @@ public class BibliotecaGUI extends JFrame {
                 }
                 atualizarListas();
             } catch (Exception ex) {
-                outputArea.setText("Ocorreu um erro ao editar livro.");
+                JOptionPane.showMessageDialog(null, "Ocorreu um erro ao editar livro.");
             }
         });
 
         removerBtn.addActionListener(e -> {
             try {
                 int id = Integer.parseInt(JOptionPane.showInputDialog("ID do livro a remover:"));
+                if(biblioteca.encontrarPorId(id)==null){
+                    throw null;
+                }
                 biblioteca.removerLivro(id);
                 atualizarListas();
             } catch (Exception ex) {
-                outputArea.setText("Erro ao remover livro.");
+                JOptionPane.showMessageDialog(null, "Erro ao remover livro.");
             }
         });
 
