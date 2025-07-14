@@ -30,7 +30,7 @@ public class BibliotecaGUI extends JFrame {
 
 
     public BibliotecaGUI() {
-        super("Biblioteca de Leitura");
+        super("Gerenciador de Leitura");
         setLayout(new BorderLayout());
         outputArea.setEditable(false);
 
