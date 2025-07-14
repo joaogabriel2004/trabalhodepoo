@@ -66,7 +66,7 @@ public class BibliotecaGUI extends JFrame {
             try {
                 int nota;
                 int id = Integer.parseInt(JOptionPane.showInputDialog("ID do livro a marcar como lido:"));
-                if(biblioteca.encontrarPorId(id)==null){
+                if(biblioteca.encontrarPorId(id)==null || biblioteca.encontrarPorId(id).isLido()){
                     throw null;
                 }
                 do {
